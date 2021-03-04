@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:teste_ioasys/shared/constants/colors.dart';
+import 'package:teste_ioasys/shared/utils/colors.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String labelText;
   final ValueChanged<String> onChanged;
   final TextEditingController controller;
   final Function validator;
+  final bool obscureText;
+  final Widget suffixIcon;
 
   const CustomTextFormField({
     Key key,
@@ -13,6 +15,8 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.controller,
     this.validator,
+    this.obscureText = false,
+    this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -32,11 +36,16 @@ class CustomTextFormField extends StatelessWidget {
         SizedBox(height: 4),
         TextFormField(
           onChanged: onChanged,
+          controller: controller,
           validator: validator,
+          obscureText: obscureText,
           decoration: InputDecoration(
+            suffixIcon: suffixIcon,
             fillColor: AppColors.whisper,
             filled: true,
-            border: OutlineInputBorder(borderSide: BorderSide.none),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+            ),
           ),
         ),
       ],

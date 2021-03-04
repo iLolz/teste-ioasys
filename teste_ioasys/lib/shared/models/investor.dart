@@ -6,10 +6,10 @@ class Investor {
   String email;
   String city;
   String country;
-  int balance;
+  double balance;
   String photo;
   Portfolio portfolio;
-  int portfolioValue;
+  double portfolioValue;
   bool firstAccess;
   bool superAngel;
 
