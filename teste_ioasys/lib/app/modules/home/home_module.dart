@@ -1,12 +1,16 @@
-import 'home_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:teste_ioasys/app/modules/home/repository/home_repository.dart';
+import 'package:teste_ioasys/app/modules/home/repository/home_repository_impl.dart';
 
-import 'home_page.dart';
+import '../../app_controller.dart';
+import 'pages/home/home_controller.dart';
+import 'pages/home/home_page.dart';
 
 class HomeModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        $HomeController,
+        Bind((i) => HomeController(homeRepository: i.get<HomeRepository>())),
+        Bind((i) => HomeRepositoryImplements(dio: i.get<AppController>().dio))
       ];
 
   @override

@@ -1,13 +1,14 @@
-import 'app_controller.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:teste_ioasys/app/app_widget.dart';
 import 'package:teste_ioasys/app/modules/home/home_module.dart';
+
+import 'app_controller.dart';
 
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
-        $AppController,
+        Bind((i) => AppController()),
       ];
 
   @override

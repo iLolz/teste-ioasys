@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:teste_ioasys/app/modules/home/repository/home_repository.dart';
 
 part 'home_controller.g.dart';
 
@@ -7,11 +8,7 @@ part 'home_controller.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-  @observable
-  int value = 0;
+  final HomeRepository homeRepository;
 
-  @action
-  void increment() {
-    value++;
-  }
+  _HomeControllerBase({this.homeRepository});
 }

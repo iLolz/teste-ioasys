@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:teste_ioasys/shared/constants/colors.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -8,8 +9,12 @@ class AppWidget extends StatelessWidget {
       navigatorKey: Modular.navigatorKey,
       title: 'Flutter Slidy',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          primarySwatch: Colors.blue,
+          textTheme: TextTheme(
+              button: TextStyle(
+            color: AppColors.whisper,
+            fontSize: 16,
+          ))),
       initialRoute: '/',
       onGenerateRoute: Modular.generateRoute,
     );
