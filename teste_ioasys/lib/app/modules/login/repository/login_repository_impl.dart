@@ -11,6 +11,6 @@ class LoginRepositoryImplements extends LoginRepository {
   @override
   Future<Response> login({String email, String password}) {
     return dio.post("/users/auth/sign_in",
-        data: {"email": email, password: password});
+        queryParameters: {"email": email, "password": password});
   }
 }

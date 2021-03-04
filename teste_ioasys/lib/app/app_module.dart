@@ -4,6 +4,7 @@ import 'package:teste_ioasys/app/app_widget.dart';
 import 'package:teste_ioasys/app/modules/home/home_module.dart';
 
 import 'app_controller.dart';
+import 'modules/login/login_module.dart';
 
 class AppModule extends MainModule {
   @override
@@ -13,7 +14,8 @@ class AppModule extends MainModule {
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, module: HomeModule()),
+        ModularRouter(Modular.initialRoute, module: LoginModule()),
+        ModularRouter("/home", module: HomeModule()),
       ];
 
   @override
