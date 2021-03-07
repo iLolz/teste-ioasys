@@ -28,6 +28,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
       (event) {
         if (event == AppStatus.success) {
           Modular.to.pushReplacementNamed("/home/");
+        } else if (event == AppStatus.none) {
+          Modular.to.pop();
         } else {
           if (event == AppStatus.error) {
             Modular.to.pop();
@@ -36,25 +38,67 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
         }
       },
     );
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             backgroundColor: AppColors.ruby,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(100)),
               side: BorderSide.none,
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(100)),
+            ),
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: [
+                      AppColors.whisper,
+                      AppColors.ruby,
+                      AppColors.ruby,
+                      AppColors.whisper,
+                    ],
+                    stops: [
+                      0.000001,
+                      0.3,
+                      0.8,
+                      1.2,
+                    ]),
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(100)),
+              ),
+            ),
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(0.0),
+              child: Column(
+                children: [
+                  Image.asset(
+                    "assets/images/logo_home.png",
+                    color: AppColors.whisper,
+                    width: 40.0,
+                  ),
+                  Text(
+                    "Seja bem vindo ao empresas!",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  Container(
+                    height: 40,
+                    width: 300,
+                  ),
+                ],
+              ),
             ),
             expandedHeight: 200,
           ),
           SliverList(
-            delegate: SliverChildListDelegate.fixed(
+            delegate: SliverChildListDelegate(
               [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -71,6 +115,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       labelText: "Senha",
                       controller: _passwordController,
                       obscureText: controller.passwordVisibility,
+                      errorMessage: controller.errorMessage,
                       suffixIcon: InkWell(
                         child: controller.passwordVisibility
                             ? Icon(Icons.visibility, color: AppColors.grey40)
@@ -88,6 +133,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       child: DefaultButton(
                     text: "Entrar",
                     onPressed: () {
+                      FocusScope.of(context).unfocus();
                       controller.login(
                           email: _emailController.value.text,
                           password: _passwordController.value.text);
@@ -98,7 +144,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
             ),
           ),
         ],
-        shrinkWrap: true,
       ),
     );
   }

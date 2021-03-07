@@ -50,6 +50,21 @@ mixin _$LoginController on _LoginControllerBase, Store {
     });
   }
 
+  final _$errorMessageAtom = Atom(name: '_LoginControllerBase.errorMessage');
+
+  @override
+  String get errorMessage {
+    _$errorMessageAtom.reportRead();
+    return super.errorMessage;
+  }
+
+  @override
+  set errorMessage(String value) {
+    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
+      super.errorMessage = value;
+    });
+  }
+
   final _$loginAsyncAction = AsyncAction('_LoginControllerBase.login');
 
   @override
@@ -60,6 +75,17 @@ mixin _$LoginController on _LoginControllerBase, Store {
 
   final _$_LoginControllerBaseActionController =
       ActionController(name: '_LoginControllerBase');
+
+  @override
+  void resetErrorMessage() {
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
+        name: '_LoginControllerBase.resetErrorMessage');
+    try {
+      return super.resetErrorMessage();
+    } finally {
+      _$_LoginControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   bool changeObscure() {
@@ -76,7 +102,8 @@ mixin _$LoginController on _LoginControllerBase, Store {
   String toString() {
     return '''
 appStatus: ${appStatus},
-passwordVisibility: ${passwordVisibility}
+passwordVisibility: ${passwordVisibility},
+errorMessage: ${errorMessage}
     ''';
   }
 }

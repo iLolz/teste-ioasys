@@ -11,10 +11,16 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           textTheme: TextTheme(
+              headline6: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+                fontFamily: "Rubik",
+                color: Colors.white,
+              ),
               button: TextStyle(
-            color: AppColors.whisper,
-            fontSize: 16,
-          ))),
+                color: AppColors.whisper,
+                fontSize: 16,
+              ))),
       initialRoute: '/',
       onGenerateRoute: Modular.generateRoute,
     );

@@ -24,13 +24,24 @@ abstract class _LoginControllerBase with Store {
   @observable
   bool passwordVisibility = true;
 
+  @observable
+  String errorMessage;
+
+  @action
+  void resetErrorMessage() => errorMessage = null;
+
   @action
   Future<void> login({String email, String password}) async {
     appStatus = AppStatus.loading;
 
     final response = await _login(email: email, password: password);
 
-    appStatus = response;
+    if (response == AppStatus.error) {
+      errorMessage = response.message;
+      appStatus = AppStatus.none;
+    } else {
+      appStatus = response;
+    }
   }
 
   @action
@@ -55,7 +66,7 @@ abstract class _LoginControllerBase with Store {
       }
       return AppStatus.success;
     } on DioError catch (e) {
-      return AppStatus.error..message = e.response.data['errors'];
+      return AppStatus.error..message = e.response.data['errors'][0];
     } on PlatformException catch (e) {
       return AppStatus.error..message = e.message;
     } catch (e) {
