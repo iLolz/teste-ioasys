@@ -13,8 +13,8 @@ class InterceptorToken extends InterceptorsWrapper {
     options.baseUrl = AppConstants.urlBase;
 
     options.headers.addAll({
-      "ContentType": "application/json",
-      "Authorization": 'Bearer $apiToken',
+      "Content-Type": "application/json",
+      "access-token": apiToken,
       "client": client,
       "uid": uid,
     });

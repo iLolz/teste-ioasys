@@ -11,11 +11,23 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           textTheme: TextTheme(
+              headline4: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Rubik",
+                color: Colors.white,
+              ),
               headline6: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w400,
                 fontFamily: "Rubik",
                 color: Colors.white,
+              ),
+              subtitle2: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.normal,
+                fontFamily: "Rubik",
+                color: Colors.black,
               ),
               button: TextStyle(
                 color: AppColors.whisper,

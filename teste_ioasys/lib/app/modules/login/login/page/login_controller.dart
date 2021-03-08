@@ -27,6 +27,12 @@ abstract class _LoginControllerBase with Store {
   @observable
   String errorMessage;
 
+  @computed
+  bool get hasError => (errorMessage?.isNotEmpty ?? false);
+
+  @action
+  void setStatus({AppStatus status}) => appStatus = status;
+
   @action
   void resetErrorMessage() => errorMessage = null;
 

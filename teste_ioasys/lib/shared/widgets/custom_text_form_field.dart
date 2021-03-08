@@ -13,7 +13,7 @@ class CustomTextFormField extends StatefulWidget {
 
   CustomTextFormField({
     Key key,
-    @required this.labelText,
+    this.labelText,
     this.onChanged,
     this.controller,
     this.validator,
@@ -54,13 +54,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          widget.labelText,
-          style: TextStyle(
-            fontSize: 14,
-            color: hasFocus ? AppColors.ruby : AppColors.grey40,
+        if (widget?.labelText?.isNotEmpty ?? false)
+          Text(
+            widget.labelText,
+            style: TextStyle(
+              fontSize: 14,
+              color: hasFocus ? AppColors.ruby : AppColors.grey40,
+            ),
           ),
-        ),
         SizedBox(height: 4),
         TextFormField(
           focusNode: focus,

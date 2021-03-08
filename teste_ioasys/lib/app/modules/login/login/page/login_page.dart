@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:teste_ioasys/shared/utils/colors.dart';
+import 'package:teste_ioasys/shared/widgets/clear_button.dart';
 import 'package:teste_ioasys/shared/widgets/custom_text_form_field.dart';
 import 'package:teste_ioasys/shared/widgets/default_button.dart';
 import '../../../../app_status.dart';
@@ -49,6 +50,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            leading: Container(),
             backgroundColor: AppColors.ruby,
             shape: RoundedRectangleBorder(
               side: BorderSide.none,
@@ -84,6 +86,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     color: AppColors.whisper,
                     width: 40.0,
                   ),
+                  SizedBox(height: 16),
                   Text(
                     "Seja bem vindo ao empresas!",
                     style: Theme.of(context).textTheme.headline6,
@@ -100,11 +103,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
+                SizedBox(height: 32),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: CustomTextFormField(
                     labelText: "Email",
                     controller: _emailController,
+                    errorMessage: controller.hasError ? " " : null,
                   ),
                 ),
                 SizedBox(height: 16),
@@ -116,21 +121,29 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       controller: _passwordController,
                       obscureText: controller.passwordVisibility,
                       errorMessage: controller.errorMessage,
-                      suffixIcon: InkWell(
-                        child: controller.passwordVisibility
-                            ? Icon(Icons.visibility, color: AppColors.grey40)
-                            : Icon(Icons.visibility_off,
-                                color: AppColors.grey40),
-                        onTap: () => controller.changeObscure(),
-                      ),
+                      suffixIcon: controller.hasError
+                          ? ClearButton(
+                              onClear: () {
+                                _passwordController.clear();
+                                controller.setStatus(status: AppStatus.none);
+                                controller.resetErrorMessage();
+                              },
+                            )
+                          : InkWell(
+                              child: controller.passwordVisibility
+                                  ? Icon(Icons.visibility,
+                                      color: AppColors.grey40)
+                                  : Icon(Icons.visibility_off,
+                                      color: AppColors.grey40),
+                              onTap: () => controller.changeObscure(),
+                            ),
                     );
                   }),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 29.0),
-                  child: Expanded(
-                      child: DefaultButton(
+                  child: DefaultButton(
                     text: "Entrar",
                     onPressed: () {
                       FocusScope.of(context).unfocus();
@@ -138,7 +151,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                           email: _emailController.value.text,
                           password: _passwordController.value.text);
                     },
-                  )),
+                  ),
                 ),
               ],
             ),

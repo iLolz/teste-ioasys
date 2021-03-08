@@ -19,6 +19,14 @@ final $LoginController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$LoginController on _LoginControllerBase, Store {
+  Computed<bool> _$hasErrorComputed;
+
+  @override
+  bool get hasError =>
+      (_$hasErrorComputed ??= Computed<bool>(() => super.hasError,
+              name: '_LoginControllerBase.hasError'))
+          .value;
+
   final _$appStatusAtom = Atom(name: '_LoginControllerBase.appStatus');
 
   @override
@@ -77,6 +85,17 @@ mixin _$LoginController on _LoginControllerBase, Store {
       ActionController(name: '_LoginControllerBase');
 
   @override
+  void setStatus({AppStatus status}) {
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
+        name: '_LoginControllerBase.setStatus');
+    try {
+      return super.setStatus(status: status);
+    } finally {
+      _$_LoginControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void resetErrorMessage() {
     final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
         name: '_LoginControllerBase.resetErrorMessage');
@@ -103,7 +122,8 @@ mixin _$LoginController on _LoginControllerBase, Store {
     return '''
 appStatus: ${appStatus},
 passwordVisibility: ${passwordVisibility},
-errorMessage: ${errorMessage}
+errorMessage: ${errorMessage},
+hasError: ${hasError}
     ''';
   }
 }
