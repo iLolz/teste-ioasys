@@ -80,7 +80,7 @@ class RadialPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     ///
     final paint = Paint()
-      ..color = Colors.black12
+      ..color = AppColors.flamingo
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4.0;
@@ -90,8 +90,8 @@ class RadialPainter extends CustomPainter {
 
     final progressPaint = Paint()
       ..shader = LinearGradient(
-              colors: [AppColors.grey40, Colors.transparent],
-              tileMode: TileMode.clamp)
+              colors: [AppColors.red.withOpacity(0.5), Colors.white],
+              tileMode: TileMode.mirror)
           .createShader(Rect.fromCircle(center: center, radius: size.width / 2))
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke

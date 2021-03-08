@@ -19,21 +19,20 @@ abstract class _HomeControllerBase with Store {
   @observable
   AppStatus appStatus = AppStatus.none;
 
-  @observable
-  List<Company> copmanies = List<Company>();
+  List<Company> companies = List<Company>();
 
   @action
   Future<void> getEnterprises() async {
     appStatus = AppStatus.loading;
 
     try {
-      final response = await repository.getEnterprises();
+      final response = await _getEnterprises();
 
-      copmanies.clear();
+      companies.clear();
 
-      response.data["enterprises"].forEach((e) {
-        copmanies.add(Company.fromMap(e));
-      });
+      if (response.isNotEmpty) {
+        companies.addAll(response);
+      }
 
       appStatus = AppStatus.success;
     } on DioError catch (e) {
@@ -43,5 +42,20 @@ abstract class _HomeControllerBase with Store {
     } catch (e) {
       throw e;
     }
+  }
+
+  Future<List<Company>> _getEnterprises() async {
+    final response = await repository.getEnterprises();
+    final List localCompanies = List<Company>();
+    companies.clear();
+
+    if (response.data.containsKey("enterprises") &&
+        response.data["enterprises"].isNotEmpty) {
+      response.data["enterprises"].forEach((e) {
+        localCompanies.add(Company.fromMap(e));
+      });
+    }
+
+    return localCompanies;
   }
 }

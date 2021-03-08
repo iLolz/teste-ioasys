@@ -34,21 +34,6 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$copmaniesAtom = Atom(name: '_HomeControllerBase.copmanies');
-
-  @override
-  List<Company> get copmanies {
-    _$copmaniesAtom.reportRead();
-    return super.copmanies;
-  }
-
-  @override
-  set copmanies(List<Company> value) {
-    _$copmaniesAtom.reportWrite(value, super.copmanies, () {
-      super.copmanies = value;
-    });
-  }
-
   final _$getEnterprisesAsyncAction =
       AsyncAction('_HomeControllerBase.getEnterprises');
 
@@ -60,8 +45,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
   @override
   String toString() {
     return '''
-appStatus: ${appStatus},
-copmanies: ${copmanies}
+appStatus: ${appStatus}
     ''';
   }
 }

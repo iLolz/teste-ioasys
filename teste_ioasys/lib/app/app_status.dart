@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:teste_ioasys/shared/widgets/default_button.dart';
-import 'package:teste_ioasys/shared/widgets/radial_progress_indicator/animated_radial_progress.dart';
+import 'package:teste_ioasys/shared/widgets/radial_progress_indicator/loading_widget.dart';
 
 ///Status of aplication
 enum AppStatus {
@@ -59,24 +59,7 @@ extension AppStatusExtension on AppStatus {
   void get toWidget {
     if (this == AppStatus.loading) {
       Modular.to.showDialog(
-        builder: (BuildContext context) => Stack(children: [
-          Center(
-            child: Container(
-              child: AppAnimatedRadialProgress(
-                size: 55,
-                animationConstant: 2,
-              ),
-            ),
-          ),
-          Center(
-            child: Container(
-              child: AppAnimatedRadialProgress(
-                size: 85,
-                animationConstant: -2,
-              ),
-            ),
-          ),
-        ]),
+        builder: (BuildContext context) => LoadingWidget(),
       );
     } else if (this == AppStatus.error) {
       Modular.to.showDialog(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobx/mobx.dart';
 import 'package:teste_ioasys/app/app_status.dart';
 import 'package:teste_ioasys/app/modules/home/shared/widgets/company_card.dart';
 import 'package:teste_ioasys/shared/utils/colors.dart';
+import 'package:teste_ioasys/shared/widgets/radial_progress_indicator/loading_widget.dart';
 
 import 'home_controller.dart';
 
@@ -21,22 +21,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   @override
   void initState() {
-    reaction<AppStatus>(
-      (_) => controller.appStatus,
-      (event) {
-        if (event == AppStatus.success) {
-          Modular.to.pop();
-        } else if (event == AppStatus.none) {
-          Modular.to.pop();
-        } else {
-          if (event == AppStatus.error) {
-            Modular.to.pop();
-          }
-          event.toWidget;
-        }
-      },
-    );
-
     controller.getEnterprises();
 
     super.initState();
@@ -71,12 +55,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       ),
       Observer(builder: (_) {
         if (controller.appStatus == AppStatus.success) {
-          if (controller.copmanies.isNotEmpty) {
+          if (controller.companies.isNotEmpty) {
             return SliverToBoxAdapter(
                 child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                        controller.copmanies.length.toString() +
+                        controller.companies.length.toString() +
                             " resultados encontrados",
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
@@ -85,16 +69,34 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         ))));
           } else {
             return SliverToBoxAdapter(
-                child: Center(
+                child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
                     child: Text("Nenhum resultado encontrado",
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 14.0,
                           color: AppColors.graniteGray,
-                        ))));
+                        ))),
+              ],
+            ));
           }
         } else {
-          return SliverToBoxAdapter(child: Container());
+          return SliverToBoxAdapter(
+              child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.4,
+              ),
+              Center(child: LoadingWidget()),
+            ],
+          ));
         }
       }),
       Observer(builder: (_) {
@@ -102,7 +104,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           return SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) => CompanyCard(
-                company: controller.copmanies[index],
+                company: controller.companies[index],
               ),
             ),
           );

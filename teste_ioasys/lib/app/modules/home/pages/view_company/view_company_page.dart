@@ -35,22 +35,26 @@ class _ViewCompanyPageState
               Theme.of(context).textTheme.headline4.apply(color: Colors.black),
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          CompanyHeader(
-            company: widget.company,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              CompanyHeader(
+                company: widget.company,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 24,
+                ),
+                child: Text(
+                  widget.company.description,
+                  style: Theme.of(context).textTheme.subtitle2,
+                ),
+              )
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 24,
-            ),
-            child: Text(
-              widget.company.description,
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
