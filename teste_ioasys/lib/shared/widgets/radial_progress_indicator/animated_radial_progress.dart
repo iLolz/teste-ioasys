@@ -1,18 +1,19 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'radial_progress.dart';
 
 /// Show radial progress
 class AppAnimatedRadialProgress extends StatefulWidget {
   ///Constructor
   final double size;
   final int animationConstant;
-  const AppAnimatedRadialProgress({
-    Key key,
-    this.size = 55.0,
-    this.animationConstant = 2,
-  }) : super(key: key);
+  final String assetDirectory;
+  const AppAnimatedRadialProgress(
+      {Key key,
+      this.size = 55.0,
+      this.animationConstant = 2,
+      @required this.assetDirectory})
+      : super(key: key);
 
   @override
   _AppAnimatedRadialProgressState createState() =>
@@ -44,12 +45,9 @@ class _AppAnimatedRadialProgressState extends State<AppAnimatedRadialProgress>
       builder: (_, child) {
         return Transform.rotate(
           angle: _controller.value * widget.animationConstant * pi,
-          child: child,
+          child: Image.asset(widget.assetDirectory),
         );
       },
-      child: RadialProgress(
-        size: widget.size,
-      ),
     );
   }
 }

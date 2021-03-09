@@ -15,6 +15,7 @@ class LoadingWidget extends StatelessWidget {
           child: AppAnimatedRadialProgress(
             size: 55,
             animationConstant: 2,
+            assetDirectory: "assets/images/loading_m.png",
           ),
         ),
       ),
@@ -23,6 +24,7 @@ class LoadingWidget extends StatelessWidget {
           child: AppAnimatedRadialProgress(
             size: 85,
             animationConstant: -2,
+            assetDirectory: "assets/images/loading_s.png",
           ),
         ),
       ),
