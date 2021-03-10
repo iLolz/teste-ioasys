@@ -73,8 +73,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       0.8,
                       1.2,
                     ]),
-                borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(100)),
               ),
             ),
             bottom: PreferredSize(
@@ -99,6 +97,30 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
               ),
             ),
             expandedHeight: 200,
+          ),
+          SliverToBoxAdapter(
+            child: ClipPath(
+              clipper: AppBarBottomClipper(),
+              child: Container(
+                height: 80,
+                width: 500,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      colors: [
+                        AppColors.whisper,
+                        AppColors.whisper,
+                        AppColors.ruby,
+                      ],
+                      stops: [
+                        0.00001,
+                        0.1,
+                        0.42,
+                      ]),
+                ),
+              ),
+            ),
           ),
           SliverList(
             delegate: SliverChildListDelegate(
@@ -160,4 +182,31 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
       ),
     );
   }
+}
+
+class AppBarBottomClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+
+    // TODO: The wavy clipping magic happens here, between the bottom left and bottom right points.
+
+    // The bottom right point also isn't at the same level as its left counterpart,
+    // so we'll adjust that one too.
+
+    path.lineTo(0.0, 0.0);
+
+    var firstControlPoint = Offset(size.width / 2, size.height);
+    var firstEndPoint = Offset(size.width, 0.0);
+    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
+        firstEndPoint.dx, firstEndPoint.dy);
+
+    path.lineTo(size.width, 0.0);
+    path.lineTo(size.width, 0.0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
