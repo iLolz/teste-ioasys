@@ -103,7 +103,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
               clipper: AppBarBottomClipper(),
               child: Container(
                 height: 80,
-                width: 500,
+                width: double.infinity,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.bottomLeft,
@@ -112,11 +112,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                         AppColors.whisper,
                         AppColors.whisper,
                         AppColors.ruby,
+                        AppColors.ruby,
                       ],
                       stops: [
-                        0.00001,
-                        0.1,
+                        0.000000001,
+                        0.034,
                         0.42,
+                        0.82,
                       ]),
                 ),
               ),
@@ -188,11 +190,6 @@ class AppBarBottomClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     var path = Path();
-
-    // TODO: The wavy clipping magic happens here, between the bottom left and bottom right points.
-
-    // The bottom right point also isn't at the same level as its left counterpart,
-    // so we'll adjust that one too.
 
     path.lineTo(0.0, 0.0);
 
