@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:teste_ioasys/app/modules/login/widgets/curved_clip.dart';
 import 'package:teste_ioasys/shared/utils/colors.dart';
 import 'package:teste_ioasys/shared/widgets/clear_button.dart';
 import 'package:teste_ioasys/shared/widgets/custom_text_form_field.dart';
 import 'package:teste_ioasys/shared/widgets/default_button.dart';
+
 import '../../../../app_status.dart';
 import 'login_controller.dart';
 
@@ -52,10 +54,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
           SliverAppBar(
             leading: Container(),
             backgroundColor: AppColors.ruby,
-            shape: RoundedRectangleBorder(
-              side: BorderSide.none,
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(100)),
-            ),
             flexibleSpace: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -89,10 +87,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     "Seja bem vindo ao empresas!",
                     style: Theme.of(context).textTheme.headline6,
                   ),
-                  Container(
-                    height: 40,
-                    width: 300,
-                  ),
+                  Container(height: 40),
                 ],
               ),
             ),
@@ -184,26 +179,4 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
       ),
     );
   }
-}
-
-class AppBarBottomClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-
-    path.lineTo(0.0, 0.0);
-
-    var firstControlPoint = Offset(size.width / 2, size.height);
-    var firstEndPoint = Offset(size.width, 0.0);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-        firstEndPoint.dx, firstEndPoint.dy);
-
-    path.lineTo(size.width, 0.0);
-    path.lineTo(size.width, 0.0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
