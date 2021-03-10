@@ -10,6 +10,7 @@ class CustomTextFormField extends StatefulWidget {
   final Widget suffixIcon;
   final FocusNode focus;
   final String errorMessage;
+  final TextInputAction textInputAction;
 
   CustomTextFormField({
     Key key,
@@ -21,6 +22,7 @@ class CustomTextFormField extends StatefulWidget {
     this.suffixIcon,
     this.focus,
     this.errorMessage,
+    this.textInputAction,
   }) : super(key: key);
 
   @override
@@ -68,6 +70,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           onChanged: widget.onChanged,
           controller: widget.controller,
           validator: widget.validator,
+          textInputAction: widget.textInputAction,
           obscureText: widget.obscureText,
           cursorColor: AppColors.ruby,
           decoration: InputDecoration(

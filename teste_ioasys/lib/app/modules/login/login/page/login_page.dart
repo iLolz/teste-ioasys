@@ -129,6 +129,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     labelText: "Email",
                     controller: _emailController,
                     errorMessage: controller.hasError ? " " : null,
+                    textInputAction: TextInputAction.next,
                   ),
                 ),
                 SizedBox(height: 16),
