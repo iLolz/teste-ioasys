@@ -50,74 +50,56 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
       resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: true,
       body: CustomScrollView(
+        shrinkWrap: true,
         slivers: [
           SliverAppBar(
+            backgroundColor: Colors.transparent,
             leading: Container(),
-            backgroundColor: AppColors.ruby,
-            flexibleSpace: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                    colors: [
-                      AppColors.whisper,
-                      AppColors.ruby,
-                      AppColors.ruby,
-                      AppColors.whisper,
-                    ],
-                    stops: [
-                      0.000001,
-                      0.3,
-                      0.8,
-                      1.2,
-                    ]),
-              ),
-            ),
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(0.0),
-              child: Column(
-                children: [
-                  Image.asset(
-                    "assets/images/logo_home.png",
-                    color: AppColors.whisper,
-                    width: 40.0,
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    "Seja bem vindo ao empresas!",
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  Container(height: 40),
-                ],
-              ),
-            ),
-            expandedHeight: 200,
-          ),
-          SliverToBoxAdapter(
-            child: ClipPath(
+            flexibleSpace: ClipPath(
               clipper: AppBarBottomClipper(),
               child: Container(
-                height: 80,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.topRight,
-                      colors: [
-                        AppColors.whisper,
-                        AppColors.whisper,
-                        AppColors.ruby,
-                        AppColors.ruby,
-                      ],
-                      stops: [
-                        0.000000001,
-                        0.034,
-                        0.42,
-                        0.82,
+                  height: 240,
+                  child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(height: 10),
+                        Image.asset(
+                          "assets/images/logo_home.png",
+                          color: AppColors.whisper,
+                          width: 40.0,
+                        ),
+                        SizedBox(height: 16),
+                        Text(
+                          "Seja bem vindo ao empresas!",
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
                       ]),
-                ),
-              ),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.bottomLeft,
+                        end: Alignment.topRight,
+                        colors: [
+                          AppColors.whisper,
+                          AppColors.ruby,
+                          AppColors.ruby,
+                          AppColors.whisper,
+                        ],
+                        stops: [
+                          0.000001,
+                          0.3,
+                          0.8,
+                          1.2,
+                        ]),
+                  )),
             ),
+            pinned: true,
+            primary: true,
+            floating: true,
+            snap: true,
+            collapsedHeight: 160,
+            expandedHeight: 200,
           ),
           SliverList(
             delegate: SliverChildListDelegate(
